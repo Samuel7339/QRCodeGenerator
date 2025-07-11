@@ -1,0 +1,63 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Code Generator</title>
+
+    <style>
+        body{
+            background-color: rgb(255, 255, 255);
+        }
+        .container{
+            margin-left: 350px;
+             margin-top: 100px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid black;
+            border-radius: 10px;
+            width: 500px;
+            height: 300px;
+        }
+        button{
+            padding: 8px;
+            border-radius: 5px;
+            margin: 15px;
+            color:white;
+            background-color: rgb(38, 206, 16);
+        }
+        input{
+            padding: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ENTER A TEXT OR LINK</h1>
+        <input type="text" id="text"> 
+        <button onclick="GenerateQrCode()">Generate</button>
+        <div id="Qrcode"></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js"></script>
+    <script>
+       function GenerateQrCode() {
+            const text = document.getElementById('text').value;
+            const qrCodeContainer = document.getElementById('Qrcode');
+            
+            qrCodeContainer.innerHTML = ""; // Clear any existing QR codes
+
+            if (text.trim() !== "") {
+                const qr = qrcode(0, 'L'); // Error correction level: L (Low)
+                qr.addData(text);
+                qr.make(); // Generate the QR code
+                qrCodeContainer.innerHTML = qr.createImgTag(4); // Add QR code as an image
+            } else {
+                alert("Enter a valid text or link.");
+            }
+       }
+    </script>
+</body>
+</html>
